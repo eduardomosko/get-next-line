@@ -32,8 +32,8 @@ static size_t	ft_strlen_max(const char *s, size_t max)
 
 	it = s;
 	end = s + max;
-	while (*s != '\0' && s != end)
-		s++;
+	while (*it != '\0' && it != end)
+		it++;
 	return (it - s);
 }
 
@@ -54,7 +54,9 @@ char	*ft_strappend(char *dest, const char *src, size_t maxcpy)
 	char	*ret;
 	char	*offset;
 
-	size = ft_strlen_max(dest, -1);
+	size = 0;
+	if (dest != NULL)
+		size += ft_strlen_max(dest, -1);
 	size += ft_strlen_max(src, maxcpy);
 	ret = malloc(size + 1);
 	if (ret == NULL)
@@ -62,7 +64,9 @@ char	*ft_strappend(char *dest, const char *src, size_t maxcpy)
 		free(dest);
 		return (NULL);
 	}
-	offset = ft_strncpy(ret, dest, -1);
+	offset = ret;
+	if (dest != NULL)
+		offset = ft_strncpy(ret, dest, -1);
 	ft_strncpy(offset, src, maxcpy);
 	free(dest);
 	return (ret);

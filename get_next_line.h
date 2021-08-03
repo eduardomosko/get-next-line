@@ -23,7 +23,7 @@ typedef struct s_cache
 {
 	char	buffer[BUFFER_SIZE + 1];
 	ssize_t	size;
-	size_t	offset;
+	ssize_t	offset;
 }	t_cache;
 
 size_t	ft_strichr(const char *s, char target);

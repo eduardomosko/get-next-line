@@ -16,8 +16,7 @@
 char	*get_next_line(int fd)
 {
 	static t_cache	cache;
-	size_t			maxcpy;
-	char			*lnptr;
+	ssize_t			maxcpy;
 	char			*ret;
 
 	ret = 0;
@@ -28,14 +27,14 @@ char	*get_next_line(int fd)
 			cache.offset = 0;
 			cache.size = read(fd, cache.buffer, BUFFER_SIZE);
 			if (cache.size <= 0)
-				return (NULL);
+				return (ret);
 		}
-		maxcpy = ft_strichr(cache.buffer, '\n') + 1;
+		maxcpy = ft_strichr(cache.buffer + cache.offset, '\n') + 1;
 		ret = ft_strappend(ret, cache.buffer + cache.offset, maxcpy);
 		cache.offset += maxcpy;
-		if (!ret)
+		if (ret == NULL)
 			return (NULL);
-		if (maxcpy <= cache.size)
+		if (cache.offset <= cache.size)
 			return (ret);
 	}
 }

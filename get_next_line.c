@@ -27,6 +27,7 @@ char	*get_next_line(int fd)
 			cache.size = read(fd, cache.buffer, BUFFER_SIZE);
 			if (cache.size <= 0)
 				return (ret);
+			cache.buffer[cache.size] = '\0';
 		}
 		maxcpy = ft_strichr(cache.buffer + cache.offset, '\n') + 1;
 		ret = ft_strappend(ret, cache.buffer + cache.offset, maxcpy);
